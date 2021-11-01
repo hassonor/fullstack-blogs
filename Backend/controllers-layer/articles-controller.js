@@ -19,12 +19,13 @@ export const voteAnArticle = async(req, res) =>{
     try{
         const articleName = req.params.name;
 
-        articlesInfo[articleName].upvotes +=1;
-        res.status(200).send(`${articleName} now has ${articlesInfo[articleName].upvotes} upvotes`)
+        const articleInfo = await logic.upVoteArticleAsync(articleName);
+        res.status(200).send(articleInfo);
+
     }
     catch(err){
         console.log(err);
-        return res.status(400).send("Error. Please Try Again.");
+        return res.status(500).send("Error. Please Try Again.");
     }
 }
 
@@ -33,13 +34,17 @@ export const addCommentToArticle = async(req, res) =>{
         const {username, text} = req.body;
         const articleName = req.params.name;
 
-        articlesInfo[articleName].comments.push({username, text});
+        let addComment = {
+            username: username,
+            text: text
+        }
+        const articleInfo = await logic.addCommentAsync(articleName, addComment);
 
-        res.status(200).send(articlesInfo[articleName]);
+        res.status(200).send(articleInfo);
     }
     catch(err){
         console.log(err);
-        return res.status(400).send("Error. Please Try Again.");
+        return res.status(500).send("Error. Please Try Again.");
     }
 }
 

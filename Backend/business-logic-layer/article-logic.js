@@ -14,9 +14,23 @@ const getArticleAsync = (articleName) => {
     })
 }
 
+const upVoteArticleAsync = (articleName) => {
+    return Article.findOneAndUpdate({name: articleName},{ $inc: { upvotes: 1 }},
+        {new: true}).exec();
+}
+
+const addCommentAsync = (articleName, comment) =>{
+    return Article.findOneAndUpdate({name: articleName},
+        {$push: {"comments":comment}},
+        {upsert: true, new : true}).exec();
+}
+
+
 
 
 
 module.exports = {
-    getArticleAsync
+    getArticleAsync,
+    upVoteArticleAsync,
+    addCommentAsync
 }
