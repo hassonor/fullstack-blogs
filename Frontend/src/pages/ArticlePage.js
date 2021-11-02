@@ -5,6 +5,7 @@ import Page404 from "./Page404";
 import axios from "axios";
 import CommentsList from "../components/CommentsList";
 import UpvotesSection from "../components/UpvotesSection";
+import AddCommentForm from "../components/AddCommentForm";
 
 const ArticlePage = ({ match }) => {
     const name = match.params.name;
@@ -14,7 +15,7 @@ const ArticlePage = ({ match }) => {
 
     useEffect(()=>{
         const fetchData = async()=>{
-            const resp = await axios.get(`http://localhost:8005/api/articles/${name}`)
+            const resp = await axios.get(process.env.REACT_APP_BACKEND_URL + `/articles/${name}`)
             setArticleInfo(resp.data);
         }
         fetchData();
@@ -32,6 +33,7 @@ const ArticlePage = ({ match }) => {
                 <p key={key}>{paragraph}</p>
             ))}
             <CommentsList comments={articleInfo.comments} />
+            <AddCommentForm articleName={name} setArticleInfo={setArticleInfo}/>
             <h3>Other Articles:</h3>
             <ArticlesList articles={otherArticles} />
         </>

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MERN Blog",
+  "name": "MERN Blog - React, Node, Express, MongoDB",
   "icons": [
     {
       "src": "favicon.ico",
