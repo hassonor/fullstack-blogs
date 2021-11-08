@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
-    Route, Switch,
+    Route, Routes,
 } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -18,13 +18,13 @@ class App extends Component {
                 <div className="App">
                     <NavBar />
                     <div id="page-body">
-                        <Switch>
-                        <Route path="/" component={HomePage} exact />
-                        <Route path="/about" component={AboutPage} />
-                        <Route path="/articles-list" component={ArticlesListPage} />
-                        <Route path="/article/:name" component={ArticlePage} />
-                        <Route component={Page404} /> {/* Must be last! */}
-                        </Switch>
+                        <Routes>
+                        <Route path="/" element={<HomePage/>}  />
+                        <Route path="/about" element={<AboutPage/>} />
+                        <Route path="/articles-list" element={<ArticlesListPage/>} />
+                        <Route path="/article/:name" element={<ArticlePage/>} />
+                        <Route element={Page404} /> {/* Must be last! */}
+                        </Routes>
                     </div>
                 </div>
             </Router>
